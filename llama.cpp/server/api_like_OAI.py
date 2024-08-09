@@ -183,6 +183,12 @@ def chat_completions():
                     decoded_line = line.decode('utf-8')
                     resData = make_resData_stream(json.loads(decoded_line[6:]), chat=True, time_now=time_now)
                     yield 'data: {}\n'.format(json.dumps(resData))
+            yield {
+                        # "event": "new_message",
+                        # "id": "message_id",
+                        # "retry": RETRY_TIMEOUT,
+                        "data": "[DONE]"
+                    }
         return Response(generate(), mimetype='text/event-stream')
 
 

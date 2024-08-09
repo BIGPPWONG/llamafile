@@ -3434,6 +3434,12 @@ int server_cli(int argc, char **argv)
                                 break;
                             }
                         }
+                        // 这里添加 `data: [DONE]` 信号
+                        const std::string done_str = "data: [DONE]\n\n";
+                        if (!sink.write(done_str.c_str(), done_str.size())) {
+                            llama.queue_results.remove_waiting_task_id(task_id);
+                            return false;
+                        }
                         sink.done();
                         llama.queue_results.remove_waiting_task_id(task_id);
                         return true;

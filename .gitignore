@@ -9,3 +9,5 @@
 /perf.data.old
 
 /*.log
+/compiled-bin
+*.zip
