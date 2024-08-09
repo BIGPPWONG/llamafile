@@ -10,3 +10,5 @@
 /trace.json
 
 /*.log
+/compiled-bin
+*.zip
