@@ -38,7 +38,7 @@ cd "$TMP"
   -DGGML_CUDA_DMMV_X=32 \
   -DK_QUANTS_PER_ITERATION=2 \
   -DGGML_CUDA_PEER_MAX_BATCH_SIZE=128 \
-  -DGGML_MINIMIZE_CODE_SIZE \
+  -DTEHFLASH \
   -DGGML_USE_TINYBLAS \
   -o ~/ggml-cuda.so \
   ggml-cuda.cu \
