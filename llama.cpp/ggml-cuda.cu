@@ -13098,9 +13098,9 @@ static bool ggml_cuda_compute_forward(ggml_backend_cuda_context & ctx, struct gg
             ggml_cuda_op_argsort(ctx, dst);
             break;
         case GGML_OP_FLASH_ATTN_EXT:
-#ifndef GGML_MINIMIZE_CODE_SIZE
+// #ifndef GGML_MINIMIZE_CODE_SIZE
             ggml_cuda_flash_attn_ext(ctx, dst);
-#endif
+// #endif
             break;
         default:
             return false;

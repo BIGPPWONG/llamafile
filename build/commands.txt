@@ -7,6 +7,18 @@
   ggml-cuda.so \
   .args
 
+./zipalign -j0 \
+  qwen2-7b-q3.llamafile \
+  qwen2-7b-instruct-q3_k_m.gguf \
+  .args
+
+./zipalign -j6 \
+  llamafile \
+  ggml-rocm.so \
+  ggml-rocm.dll \
+  ggml-cuda.dll \
+  ggml-cuda.so
+
 
 llamafile -ngl 9999 \
   -m qwen2-7b-instruct-q4_0.gguf \
