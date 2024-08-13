@@ -28,6 +28,13 @@ llamafile -ngl 9999 \
 
 rm -rf  $TMPDIR/.llamafile ~/.llamafile
 
+windows: 
+nvcc -arch=all -DIGNORE123 -O3 --shared --use_fast_math --forward-unknown-to-host-compiler --compiler-options "/nologo /EHsc /O2 /GR /MT" -DGGML_BUILD=1 -DGGML_SHARED=1 -DGGML_MULTIPLATFORM -DGGML_CUDA_DMMV_X=32 -DK_QUANTS_PER_ITERATION=2 -DGGML_CUDA_PEER_MAX_BATCH_SIZE=128 -DGGML_CUDA_MMV_Y=1 -DGGML_USE_CUBLAS -DGGML_CUDA_FORCE_MMQ -DTEHFLASH -o ggml-cuda.dll.all ggml-cuda.cu -lcublas -lcuda
+
+linux:
+/usr/local/cuda/bin/nvcc -arch=all -std=c++11 -O3 --shared --use_fast_math --forward-unknown-to-host-compiler --compiler-options "-fPIC -O3 -march=native -mtune=native -std=c++11 -Wno-unused-function -Wno-unused-result -Wno-return-type -Wno-pedantic" -DGGML_BUILD=1 -DGGML_SHARED=1 -DGGML_MULTIPLATFORM -DGGML_CUDA_DMMV_X=32 -DK_QUANTS_PER_ITERATION=2 -DGGML_CUDA_PEER_MAX_BATCH_SIZE=128 -DGGML_CUDA_MMV_Y=1 -DGGML_USE_CUBLAS -DGGML_CUDA_FORCE_MMQ -DTEHFLASH -o /home/huangweiwen/.llamafile/v/0.8.12/ggml-cuda.so.all /home/huangweiwen/.llamafile/v/0.8.12/ggml-cuda.cu -lcublas -lcuda
+
+
 curl http: //192.168.4.128:8083/v1/chat/completions \
 -H "Content-Type: application/json" \
 -H "Authorization: Bearer no-key" \
