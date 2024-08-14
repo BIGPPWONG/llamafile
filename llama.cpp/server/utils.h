@@ -202,7 +202,7 @@ inline bool verify_custom_template(const std::string & tmpl) {
 }
 
 // Format given chat. If tmpl is empty, we take the template from model metadata
-inline std::string format_chat(const struct llama_model * model, const std::string & tmpl, const std::vector<json> & messages)
+inline std::string format_chat(const struct llama_model * model, const std::string & tmpl, const std::vector<json> & messages,bool add_ass = true) //[hww]
 {
     size_t alloc_size = 0;
     // vector holding all allocated string to be passed to llama_chat_apply_template
@@ -222,7 +222,7 @@ inline std::string format_chat(const struct llama_model * model, const std::stri
     std::vector<char> buf(alloc_size * 2);
 
     // run the first time to get the total output length
-    int32_t res = llama_chat_apply_template(model, ptr_tmpl, chat.data(), chat.size(), true, buf.data(), buf.size());
+    int32_t res = llama_chat_apply_template(model, ptr_tmpl, chat.data(), chat.size(), add_ass, buf.data(), buf.size());
 
     // if it turns out that our buffer is too small, we resize it
     if ((size_t) res > buf.size()) {

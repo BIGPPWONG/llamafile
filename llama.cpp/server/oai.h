@@ -35,7 +35,8 @@ inline static json oaicompat_completion_params_parse(
     // https://platform.openai.com/docs/api-reference/chat/create
     llama_sampling_params default_sparams;
     llama_params["model"]             = json_value(body, "model", std::string("unknown"));
-    llama_params["prompt"]            = format_chat(model, chat_template, body["messages"]);
+    bool add_ass = json_value(body, "add_generation_prompt", true); //[hww]
+    llama_params["prompt"]            = format_chat(model, chat_template, body["messages"], add_ass); //[hww]
     llama_params["cache_prompt"]      = json_value(body, "cache_prompt", false);
     llama_params["temperature"]       = json_value(body, "temperature", 0.0);
     llama_params["top_k"]             = json_value(body, "top_k", default_sparams.top_k);

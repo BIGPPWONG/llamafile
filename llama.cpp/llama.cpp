@@ -17697,6 +17697,17 @@ static int32_t llama_chat_apply_template_internal(
         }
         if (add_ass) {
             ss << "<|im_start|>assistant\n";
+        } else {
+            // [hww]
+            std::string suffix = "<|im_end|>\n";
+            // 提取字符串流内容为字符串
+            std::string str = ss.str();
+            str.erase(str.size() - suffix.size());
+            // 清空原来的字符串流
+            ss.str("");
+            ss.clear();
+            // 将修改后的字符串重新插入字符串流中
+            ss << str;
         }
     } else if (tmpl == "llama2" || tmpl.find("[INST]") != std::string::npos) {
         // llama2 template and its variants
